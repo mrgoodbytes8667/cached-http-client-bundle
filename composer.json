@@ -1,0 +1,42 @@
+{
+    "name": "mrgoodbytes8667/cached-http-client-bundle",
+    "type": "symfony-bundle",
+    "description": "A Symfony bundle for easily caching HttpClient responses",
+    "license": "MIT",
+    "require": {
+        "php": "^8.1",
+        "ext-json": "*",
+        "symfony/framework-bundle": "^6.4 | ^7.0",
+        "symfony/http-client": "^6.4 | ^7.0",
+        "symfony/http-foundation": "^6.4 | ^7.0"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.58",
+        "rector/rector": "^2.0",
+        "symfony/test-pack": "^1.0.8",
+        "symfony/var-dumper": "^6.4 | ^7.0"
+    },
+    "authors": [
+        {
+            "name": "MrGoodBytes",
+            "email": "bytes@mrgoodbytes.dev"
+        }
+    ],
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true
+        }
+    },
+    "conflict": {
+        "phpunit/phpunit": "<9.5 | 9.5.8",
+        "symfony/string": "<6.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Bytes\\HttpClient\\Cached\\": "src/",
+            "Bytes\\HttpClient\\Cached\\Tests\\": "Tests/"
+        }
+    },
+    "minimum-stability": "dev"
+}

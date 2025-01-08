@@ -1,0 +1,6 @@
+ignore:
+    - "rector.php"
+    - "src/BytesCachedHttpClientBundle.php"
+    - "src/DependencyInjection/BytesCachedHttpClientExtension.php"
+    - "src/Resources/config/services.php"
+    - "src/BytesCachedHttpClientBundle.php"
