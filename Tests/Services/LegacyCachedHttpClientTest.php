@@ -9,7 +9,7 @@ use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\JsonMockResponse;
 use Symfony\Contracts\Cache\CacheInterface;
 
-class CachedHttpClientTest extends TestCase
+class LegacyCachedHttpClientTest extends TestCase
 {
     public function testRequest()
     {
@@ -27,8 +27,8 @@ class CachedHttpClientTest extends TestCase
 
         $client = new CachedHttpClient(cache: $cache, client: $mockClient);
 
-        $response1 = $client->getContent('GET', 'https://example.example', time: 3600);
-        $response2 = $client->getContent('GET', 'https://example.example', time: 3600);
+        $response1 = $client->request('GET', 'https://example.example', time: 3600);
+        $response2 = $client->request('GET', 'https://example.example', time: 3600);
 
         self::assertSame($response1, $response2);
     }
@@ -48,9 +48,9 @@ class CachedHttpClientTest extends TestCase
 
         $client = new CachedHttpClient(cache: $cache, client: $mockClient);
 
-        $response1 = $client->getContent('GET', 'https://example.example', time: 3600);
-        $response2 = $client->getContent('GET', 'https://example.example', time: 3600);
-        $response3 = $client->getContent('GET', 'https://example.example/index.html', time: 3600);
+        $response1 = $client->request('GET', 'https://example.example', time: 3600);
+        $response2 = $client->request('GET', 'https://example.example', time: 3600);
+        $response3 = $client->request('GET', 'https://example.example/index.html', time: 3600);
 
         self::assertSame($response1, $response2);
         self::assertNotSame($response1, $response3);
