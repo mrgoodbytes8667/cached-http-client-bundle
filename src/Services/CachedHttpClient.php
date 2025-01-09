@@ -28,12 +28,6 @@ class CachedHttpClient
         });
     }
 
-    #[Deprecated('This function will change functionality in v0.2.0, replace calls to this with getContent() method.', '%class%->getContent(%parametersList%)')]
-    public function request(string $method, string $url, int|DateInterval|null $time, ?string $key = null, array $options = []): ?string
-    {
-        return $this->getContent(method: $method, url: $url, time: $time, key: $key, options: $options);
-    }
-
     public function buildCacheKey(?string $key, string $method, string $url): string
     {
         return $key ?? u('bytes_cached_http_client_')->append($method, '_', $url)->snake()->replaceMatches('/[^A-Za-z0-9_]++/', '');
