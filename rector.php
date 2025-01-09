@@ -43,12 +43,7 @@ use Rector\TypeDeclaration\Rector\Property\TypedPropertyFromStrictSetUpRector;
 $rectorConfig = RectorConfig::configure()
     ->withRootFiles()
     ->withPaths([
-        __DIR__.'/DependencyInjection',
-        __DIR__.'/Enums',
-        __DIR__.'/Faker',
-        __DIR__.'/PhpUnit',
-        __DIR__.'/Resources',
-        __DIR__.'/Twig',
+        __DIR__.'/src',
         __DIR__.'/Tests',
     ])
     ->withSets([
