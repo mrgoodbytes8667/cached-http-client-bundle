@@ -11,7 +11,7 @@
 ![GitHub Tests Workflow Status](https://img.shields.io/github/actions/workflow/status/mrgoodbytes8667/cached-http-client-bundle/run-tests.yml?logo=github&logoColor=FFF&style=flat)
 ![GitHub By Version Workflow Status](https://img.shields.io/github/actions/workflow/status/mrgoodbytes8667/cached-http-client-bundle/run-tests-by-version.yml?label=by-version%20build&logo=github&logoColor=FFF&style=flat)
 ![GitHub Coverage Workflow Status](https://img.shields.io/github/actions/workflow/status/mrgoodbytes8667/cached-http-client-bundle/code-coverage.yml?label=coverage%20build&logo=github&logoColor=FFF&style=flat)
-[![codecov](https://img.shields.io/codecov/c/github/mrgoodbytes8667/cached-http-client-bundle/0.1?logo=codecov&logoColor=FFF&style=flat)](https://codecov.io/gh/mrgoodbytes8667/cached-http-client-bundle)  
+[![codecov](https://img.shields.io/codecov/c/github/mrgoodbytes8667/cached-http-client-bundle/0.2?logo=codecov&logoColor=FFF&style=flat)](https://codecov.io/gh/mrgoodbytes8667/cached-http-client-bundle)  
 A Symfony bundle for easily caching HttpClient responses
 
 ## Installation
