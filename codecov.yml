@@ -1,4 +1,5 @@
 ignore:
+    - ".php-cs-fixer.dist.php"
     - "rector.php"
     - "src/BytesCachedHttpClientBundle.php"
     - "src/DependencyInjection/BytesCachedHttpClientExtension.php"
