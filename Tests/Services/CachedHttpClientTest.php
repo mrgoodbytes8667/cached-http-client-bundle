@@ -3,56 +3,52 @@
 namespace Bytes\HttpClient\Cached\Tests\Services;
 
 use Bytes\HttpClient\Cached\Services\CachedHttpClient;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\HttpClient\MockHttpClient;
-use Symfony\Component\HttpClient\Response\JsonMockResponse;
-use Symfony\Contracts\Cache\CacheInterface;
 
-class CachedHttpClientTest extends TestCase
+class CachedHttpClientTest extends TestCachedHttpClient
 {
+    private ?CachedHttpClient $client = null;
+
     public function testRequest()
     {
-        $mockClient = new MockHttpClient([
-            new JsonMockResponse([
-                'foo' => 'bar',
-            ]),
-        ]);
+        $response1 = $this->client->request('GET', 'https://example.example', time: self::CACHE_LIFETIME);
+        $response2 = $this->client->request('GET', 'https://example.example', time: self::CACHE_LIFETIME);
+        $response3 = $this->client->request('GET', 'https://example.example/index.html', time: self::CACHE_LIFETIME);
 
-        $cache = self::createStub(CacheInterface::class);
-        $cache->method('get')
-            ->willReturn(json_encode([
-                'foo' => 'bar',
-            ]));
-
-        $client = new CachedHttpClient(cache: $cache, client: $mockClient);
-
-        $response1 = $client->getContent('GET', 'https://example.example', time: 3600);
-        $response2 = $client->getContent('GET', 'https://example.example', time: 3600);
-
-        self::assertSame($response1, $response2);
+        self::assertEquals($response1, $response2);
+        self::assertNotEquals($response1, $response3);
     }
 
-    public function testCache()
+    public function testGetContent()
     {
-        $mockClient = new MockHttpClient([
-            new JsonMockResponse([
-                'foo' => 'bar',
-            ]),
-            new JsonMockResponse([
-                'bar' => 'foo',
-            ]),
-        ]);
-
-        $cache = new ArrayAdapter();
-
-        $client = new CachedHttpClient(cache: $cache, client: $mockClient);
-
-        $response1 = $client->getContent('GET', 'https://example.example', time: 3600);
-        $response2 = $client->getContent('GET', 'https://example.example', time: 3600);
-        $response3 = $client->getContent('GET', 'https://example.example/index.html', time: 3600);
+        $response1 = $this->client->getContent('GET', 'https://example.example', time: self::CACHE_LIFETIME);
+        $response2 = $this->client->getContent('GET', 'https://example.example', time: self::CACHE_LIFETIME);
+        $response3 = $this->client->getContent('GET', 'https://example.example/index.html', time: self::CACHE_LIFETIME);
 
         self::assertSame($response1, $response2);
         self::assertNotSame($response1, $response3);
+    }
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $mockClient = new MockHttpClient([
+            $this->buildJsonResponse(),
+            $this->buildJsonResponse(self::BARFOO),
+        ]);
+
+        $cache = new ArrayAdapter(defaultLifetime: static::CACHE_LIFETIME, maxLifetime: static::CACHE_LIFETIME * 2,
+            clock: $this->clock);
+
+        $this->client = new CachedHttpClient(cache: $cache, client: $mockClient);
+    }
+
+    public function tearDown(): void
+    {
+        parent::tearDown();
+
+        $this->client = null;
     }
 }
